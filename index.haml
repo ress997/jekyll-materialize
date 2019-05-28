@@ -1,0 +1,58 @@
+---
+layout: default
+is_home: true
+description: "It is a Template of Jekyll using materialize by Aoi Tachibana"
+---
+.row
+	{% for post in paginator.posts %}
+	.col.s12.m6.l4
+		.card.medium
+			.card-image
+				%img.materialboxed(src="{% if post.image %}{{ post.image | absolute_url }}{% else %}{{ site.thumbnail | absolute_url }}{% endif %}")
+			%a(href="{{ post.url | absolute_url }}")
+				%h2.card-title<
+					{{ post.title }}
+				.card-content
+					.row
+						%span.left.disabled<
+							{{ post.category }}
+						%date.right.disabled<
+							{{ post.date | date:'%m/%d/%Y' }}
+					%p<
+						{{ post.excerpt | strip_html | truncate: 100 }}
+				.card-action
+					%a.right.btn.waves-effect.waves-light.blue(href="{{ post.url | absolute_url }}")<
+						Read more
+	{% endfor %}
+.center-align
+	.card-panel
+		%ul.pagination
+			%li.btn-flat(class="{% if paginator.previous_page %}waves-effect{% else %}disabled{% endif %}")
+				%a(href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}")
+					%i.material-icons<
+						chevron_left
+				{% if paginator.total_pages > 1 %}
+				{% for page in (1..paginator.total_pages) %}
+				{% if page == 1 %}
+				%li.waves-effect.hide-on-small-only
+					%a(href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}")<
+						{{ page }}
+				{% elsif page == paginator.page %}
+				%li.active.blue
+					%a(href="#")<
+						{{ paginator.page }}
+				{% else %}
+				%li.waves-effect.hide-on-small-only
+					%a(href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}")<
+						{{ page }}
+				{% endif %}
+				{% endfor %}
+				{% else %}
+				%li.active.blue
+					%a(href="#")<
+						1
+				{% endif %}
+				%li.btn-fla(class="{% if paginator.next_page %}waves-effect{% else %}disabled{% endif %}")
+					%a(href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}")
+						%i.material-icons<
+							chevron_right

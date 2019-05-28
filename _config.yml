@@ -1,0 +1,34 @@
+encoding: utf-8
+exclude: [".gitignore", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
+excerpt_separator: <!--more-->
+
+# プラグイン
+plugins:
+  - jekyll-haml
+  - jekyll-paginate
+paginate: 6
+paginate_path: /page/:num/
+permalink: /:categories/:title/
+sass:
+  style: compressed
+
+#
+materialize:
+  version: "0.100.2"
+
+icon: /img/icon.png
+thumbnail: /img/logo-ogp.png
+
+#
+title: Jekyll Materialize
+
+url: "Your site url"
+baseurl: "Your site baseurl"
+
+author:
+  name: "Your name"
+  url: "Your profile site url"
+  twitter: "Your twitter username"
+
+# Google Analytics
+tracking_id: "Google analytics tracking id"

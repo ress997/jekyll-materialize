@@ -1,0 +1,136 @@
+---
+layout: null
+---
+!!!
+%html
+	%head
+		{% assign post_description = page.excerpt | strip_html | strip_newlines | truncate: 120 | xml_escape %}
+		%meta(charset="utf-8")
+		%meta(name="viewport" content="width=device-width,initial-scale=1")
+		/ seo
+		%title<
+			{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}
+		%link(rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/atom.xml' | absolute_url }}")
+		%link(rel="canonical" href="{{ page.url | absolute_url }}")
+		%meta(name="author" content="{{ site.author.name }}")
+		%meta(name="title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}")
+		%meta(name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ post_description }}{% endif %}")
+		%meta(property="og:type" content="{% if page.is_home %}website{% else %}article{% endif %}")
+		%meta(property="og:site_name" content="{{ site.title }}")
+		%meta(property="og:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}")
+		%meta(property="og:url" content="{{ page.url | absolute_url }}")
+		%meta(property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ post_description }}{% endif %}")
+		%meta(property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.thumbnail | absolute_url }}{% endif %}")
+		%meta(name="twitter:card" content="summary_large_image")
+		%meta(name="twitter:site" content="{{ site.author.twitter }}")
+		%meta(name="twitter:creator:id" content="4359435794")
+		%meta(name="twitter:title" content="{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}")
+		%meta(name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ post_description }}{% endif %}")
+		%meta(name="twitter:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ site.thumbnail | absolute_url }}{% endif %}")
+		/ icon
+		%meta(name="apple-mobile-web-app-capable" content="yes")
+		%meta(name="apple-mobile-web-app-status-bar-style" content="black")
+		%meta(name="apple-mobile-web-app-title" content="{{ site.title }}")
+		%link(rel="shortcut icon" href="{{ site.icon | absolute_url }}")
+		%link(rel="icon" sizes="192x192" href="{{ site.icon | absolute_url }}")
+		%link(rel="canonical" href="{{ page.url | absolute_url }}")
+		/ stylesheet
+		%link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+		%link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/{{ site.materialize.version }}/css/materialize.min.css")
+		:css
+			{% capture styles %}{% include css/style.scss %}{% endcapture %}{{ styles | scssify | strip_newlines }}
+		{% if site.tracking_id %}
+		%script(async="" src="//www.google-analytics.com/analytics.js")
+		:javascript
+			window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+			ga('create', '{{ site.tracking_id }}', 'auto');
+			ga('send', 'pageview');
+		{% endif %}
+	%body
+		%nav
+			.container
+				%a.button-collapse(href="#" data-activates="nav-mobile")
+					%i.material-icons<
+						menu
+			.nav-wrapper.deep-purple
+				%a.brand-logo.center(href="{{ '/' | absolute_url }}")<
+					Logo
+				%ul.right.hide-on-med-and-down
+					%li
+						%a(href="{{ '/' | absolute_url }}")<
+							Home
+					%li
+						%a(href="#")<
+							Link
+					%li
+						%a(href="#")<
+							Link
+					%li
+						%a(href="#")<
+							Link
+					%li
+						%a(href="#")<
+							Link
+				%ul#nav-mobile.side-nav
+					%li.active.deep-purple
+						%span.container<
+							Menu
+					%li
+						%a(href="{{ '/' | absolute_url }}")<
+							Home
+					%li
+						%a(href="#")<
+							Link
+					%li
+						%a(href="#")<
+							Link
+					%li
+						%a(href="#")<
+							Link
+					%li
+						%a(href="#")<
+							Link
+		%header
+			<br><br>
+			%h1.center<
+				{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
+			<br><br>
+		%main.container
+			{{ content }}
+		%footer.page-footer.deep-purple
+			.container
+				.row
+					.col.l6.s12
+						%h5.white-text<
+							Footer Content
+						%p.grey-text.text-lighten-4<
+							You can use rows and columns here to organize your footer content.
+					.col.l4.offset-l2.s12
+						%h5.white-text<
+							Links
+						%ul
+							%li
+								%a.grey-text.text-lighten-3(href="#")<
+									Link 1
+							%li
+								%a.grey-text.text-lighten-3(href="#")<
+									Link 2
+							%li
+								%a.grey-text.text-lighten-3(href="#")<
+									Link 3
+							%li
+								%a.grey-text.text-lighten-3(href="#")<
+									Link 4
+			.footer-copyright
+				.container
+					%small<
+						Copyright &copy; 2016 <a href="{{ site.author.url }}">{{ site.author.name }}</a> All Rights Reserved.
+		%script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+		%script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/{{ site.materialize.version }}/js/materialize.min.js")
+		:javascript
+			$(document).ready(function() {
+				$('.button-collapse').sideNav({
+					closeOnClick: true
+				});
+				$('.materialboxed').materialbox();
+			});
